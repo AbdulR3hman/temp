@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /**
  * @author AbdulRehamn AL-Faraj
@@ -12,52 +11,77 @@ public class Driver {
 	public static void main(String[] args) {
 
 		HistoryContainer log = new HistoryContainer();
-		String command = "NoCommand", data = "";
-		int id = -1, timestamp = -1;
-		Pattern whiteSpaces = Pattern. compile("\\d");
+		String command = "NoCommand";
+		String[] commands = null;
+
 		Scanner scanIn = new Scanner(System.in);
 
 		System.out
 				.println("Welcome to Diawa read-biased in-memory temporal data store\n "
 						+ "Please start by typing your command followed by any necessary input fields.: ");
 
-		// From the specifications, the style of which any command would be cast
-		// as follow:
-		// Command Name <ID> [TimeStamp] [Data]
-		if (scanIn.hasNext(whiteSpaces)) {
-			command = scanIn.next().toUpperCase();	//Command Name
+		boolean end = false;
+		while (!end) {
 
-			if (scanIn.hasNext(whiteSpaces)) {
-				id = scanIn.nextInt();				// <ID>
+			// From the specifications, the style of which any command would be
+			// cast
+			// as follow:
+			// Command Name <ID> [TimeStamp] [Data]
+			if (scanIn.hasNext()) {
+				command = scanIn.nextLine(); // Command Name
+				commands = command.split("\\s+"); // splits all the commands if
+													// there is more than one
 
-				if (scanIn.hasNext(whiteSpaces)) {
-					timestamp = scanIn.nextInt();	//[timeStamp]
+				switch (commands[0].toUpperCase()) {
+				case "GET":
+					System.out.println("GETTING:\n");
+					System.out.println(log.getObservations(
+							Integer.parseInt(commands[1]),
+							Integer.parseInt(commands[2]))
+							+ "\r");
+					break;
 
-					if (scanIn.hasNext(whiteSpaces)) {
-						data = scanIn.next();		//[data]
-					}
+				case "CREATE":
+					System.out.println("CREATING:\n");
+					System.out.println(log.createIdentifier(
+							Integer.parseInt(commands[1]),
+							Integer.parseInt(commands[2]), commands[3])
+							+ "\r");
+					break;
+
+				case "UPDATE":
+					System.out.println("UPDATING:\n");
+					System.out.println(log.update(
+							Integer.parseInt(commands[1]),
+							Integer.parseInt(commands[2]), commands[3])
+							+ "\r");
+					break;
+
+				case "LATEST":
+					System.out.println("UPDATING:\n");
+					System.out.println(log.latestObs(Integer
+							.parseInt(commands[1])) + "\r");
+					break;
+
+				case "DELETE":
+					System.out.println("DELETING:\n");
+					System.out.println(log.deleteObservations(Integer
+							.parseInt(commands[1]), (commands.length < 2 ? -1
+							: Integer.parseInt(commands[1]))));
+					break;
+
+				case "QUIT":
+					end = true;
+					break;
+
+				default:
+					System.out
+							.println("The command you requested is not valid, please try again");
+					break;
 				}
 			}
 		}
-		
-		
+
 		scanIn.close();
-		switch (command) {
-		case "GET":
-			System.out.print("a get test");
-			break;
-
-		default:
-			System.out
-					.print("The command you requested is not valid, please try again");
-
-		}
-
-		System.out.println(command);
-		System.out.println(id);
-		System.out.println(timestamp);
-		System.out.println(data);
-
 	}
-
 }
