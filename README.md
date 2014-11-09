@@ -1,7 +1,7 @@
 DiawaCode
 =========
 
-#Template component
+
 ##Introduction
 This Code was created for the sake of Diawa as part of a test. 
 Author: AbdulRehman Faraj (aka Abdul AL-Faraj)
