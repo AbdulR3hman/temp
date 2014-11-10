@@ -4,8 +4,9 @@ awaCode
 
 ##Introduction
 This Code was created for the sake of Diawa as part of a test. 
-Author: AbdulRehman Faraj (aka Abdul AL-Faraj)
-Date of Final submission: 9th/NOV/2014 11:46PM
+
+###Author: AbdulRehman Faraj (aka Abdul AL-Faraj)
+###Date of Final submission: 9th/NOV/2014 11:46PM
 
 ##Usage
 THE FOLLOWING IS THE TEST SPECIFICATIONS:
